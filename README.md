@@ -25,9 +25,13 @@ UI Display:
 API Endpoints
 Method
 GET	/tasks	Get all tasks
+
 GET	/tasks/{id}	Get task by ID
+
 POST	/tasks	Add new task
+
 PUT	/tasks/{id}	Update a task
+
 DELETE	/tasks/{id}	Delete a task
 
 Prerequisites
