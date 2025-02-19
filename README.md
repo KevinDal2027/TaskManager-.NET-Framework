@@ -5,6 +5,7 @@ Tech Stack
    Backend: ASP.NET Core Minimal API
    Database: SQLite (EF Core)
    Frontend: HTML, CSS, JavaScript
+   
 How to Run
    Clone the repository: 
    -> git clone https://github.com/KevinDal2027/TaskManager-.NET-Framework.git
