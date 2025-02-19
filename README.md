@@ -23,7 +23,7 @@ A simple Task Manager built with ASP.NET Core (.NET 9.0) and Entity Framework Co
 
  ** _Install dependencies: _**
       
-      dotnet restore
+      dotnet restore ASPWebApp.csproj
 
 _**Run the application:**_
 
