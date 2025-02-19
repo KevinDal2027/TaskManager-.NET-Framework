@@ -7,22 +7,32 @@ Tech Stack
    Frontend: HTML, CSS, JavaScript
    
 How to Run
+
    Clone the repository: 
+   
    -> git clone https://github.com/KevinDal2027/TaskManager-.NET-Framework.git
+   
    -> cd TaskManager-.NET-Framework
+   
 
   Install dependencies: 
+  
    -> dotnet restore
 
 Run the application:
 
    -> dotnet run
+   
 Access the API:
+
     API: http://localhost:5075/tasks
+    
 UI Display:
+
     -> Use VSC or anything that can run browser with HTML/JS, Open the index.html
 
 API Endpoints
+
 Method
 GET	/tasks	Get all tasks
 
