@@ -35,6 +35,4 @@ PUT	/tasks/{id}	Update a task
 DELETE	/tasks/{id}	Delete a task
 
 Prerequisites
-    .NET 9.0 SDK
-    Git
-    A web browser/VSC
+    .NET 9.0 SDK, Git, A web browser/VSC
