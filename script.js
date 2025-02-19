@@ -13,16 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
         taskList.innerHTML = "";
         try {
             const response = await fetch(API_URL);
-            let tasks = await response.json();
+            const tasks = await response.json();
 
-            // Sort by due date first, then by priority (higher number = higher priority)
+            // Sort by Due Date first, then by Priority
             tasks.sort((a, b) => {
-                const dateA = new Date(a.dueDate);
-                const dateB = new Date(b.dueDate);
-                if (dateA - dateB !== 0) {
-                    return dateA - dateB; // Sort by due date (earliest first)
+                if (a.dueDate === b.dueDate) {
+                    return a.priority - b.priority;
                 }
-                return b.priority - a.priority; // If same date, sort by priority (higher first)
+                return new Date(a.dueDate) - new Date(b.dueDate);
             });
 
             tasks.forEach(task => addTaskToUI(task));
@@ -36,15 +34,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const taskItem = document.createElement("li");
         taskItem.classList.add("task");
         taskItem.dataset.id = task.id;
+
         taskItem.innerHTML = `
-            <strong>${task.name}</strong>
-            <span class="category">${task.categoryId === 1 ? "Academics" : "Others"}</span><br>
-            <span class="priority">Priority: ${task.priority}</span><br>
-            <span class="due-date">Due Date: ${task.dueDate}</span>
-            <div class="buttons">
-                <button class="edit" onclick="editTask(${task.id})">Edit</button>
-                <button onclick="deleteTask(${task.id})">Delete</button>
-            </div>
+            <strong>${task.name}</strong><br>
+            Category: ${task.categoryId === 1 ? "Academics" : "Others"}<br>
+            Priority: ${task.priority}<br>
+            Due Date: ${task.dueDate}
+            <br>
+            <button class="edit-btn" data-id="${task.id}">Edit</button>
+            <button class="delete-btn" data-id="${task.id}">Delete</button>
         `;
 
         taskList.appendChild(taskItem);
@@ -69,62 +67,65 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (response.ok) {
-                fetchTasks();
+                fetchTasks(); // Reload tasks
             }
         } catch (error) {
             console.error("Error adding task:", error);
         }
 
         // Clear form
-        taskName.value = "";
-        taskCategory.value = "1";
-        taskPriority.value = "";
-        taskDueDate.value = "";
+        taskForm.reset();
     });
 
     // Edit a task
-    async function editTask(id) {
-        const newName = prompt("Enter new task name:");
-        const newPriority = prompt("Enter new priority (1-100):");
-        const newDueDate = prompt("Enter new due date (YYYY-MM-DD):");
+    taskList.addEventListener("click", async (event) => {
+        if (event.target.classList.contains("edit-btn")) {
+            const id = event.target.dataset.id;
+            const newName = prompt("Enter new task name:");
+            const newPriority = prompt("Enter new priority (1-100):");
+            const newDueDate = prompt("Enter new due date (YYYY-MM-DD):");
 
-        if (!newName || !newPriority || !newDueDate) return;
+            if (!newName || !newPriority || !newDueDate) return;
 
-        const updatedTask = {
-            name: newName,
-            priority: Number(newPriority),
-            dueDate: newDueDate
-        };
+            const updatedTask = {
+                name: newName,
+                priority: Number(newPriority),
+                dueDate: newDueDate
+            };
 
-        try {
-            const response = await fetch(`${API_URL}/${id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(updatedTask)
-            });
+            try {
+                const response = await fetch(`${API_URL}/${id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(updatedTask)
+                });
 
-            if (response.ok) {
-                fetchTasks();
+                if (response.ok) {
+                    fetchTasks(); // Reload tasks
+                }
+            } catch (error) {
+                console.error("Error updating task:", error);
             }
-        } catch (error) {
-            console.error("Error updating task:", error);
         }
-    }
+    });
 
     // Delete a task
-    async function deleteTask(id) {
-        if (!confirm("Are you sure you want to delete this task?")) return;
+    taskList.addEventListener("click", async (event) => {
+        if (event.target.classList.contains("delete-btn")) {
+            const id = event.target.dataset.id;
+            if (!confirm("Are you sure you want to delete this task?")) return;
 
-        try {
-            const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+            try {
+                const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
 
-            if (response.ok) {
-                fetchTasks();
+                if (response.ok) {
+                    fetchTasks(); // Reload tasks
+                }
+            } catch (error) {
+                console.error("Error deleting task:", error);
             }
-        } catch (error) {
-            console.error("Error deleting task:", error);
         }
-    }
+    });
 
     fetchTasks(); // Load tasks on page load
 });
