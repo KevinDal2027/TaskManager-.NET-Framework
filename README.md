@@ -5,27 +5,30 @@ Tech Stack
    Backend: ASP.NET Core Minimal API
    Database: SQLite (EF Core)
    Frontend: HTML, CSS, JavaScript
-   
+
+
+Prerequisites
+    .NET 9.0 SDK, Git, A web browser/VSC
+    
 How to Run
 
    Clone the repository: 
-   
-   -> git clone https://github.com/KevinDal2027/TaskManager-.NET-Framework.git
-   
-   -> cd TaskManager-.NET-Framework
+      
+      git clone https://github.com/KevinDal2027/TaskManager-.NET-Framework.git
+      cd TaskManager-.NET-Framework
    
 
   Install dependencies: 
-  
-   -> dotnet restore
+      
+      dotnet restore
 
 Run the application:
 
-   -> dotnet run
+      dotnet run
    
 Access the API:
 
-    API: http://localhost:5075/tasks
+      http://localhost:5075/tasks
     
 UI Display:
 
@@ -43,6 +46,3 @@ POST	/tasks	Add new task
 PUT	/tasks/{id}	Update a task
 
 DELETE	/tasks/{id}	Delete a task
-
-Prerequisites
-    .NET 9.0 SDK, Git, A web browser/VSC
