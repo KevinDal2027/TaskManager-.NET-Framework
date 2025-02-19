@@ -15,8 +15,7 @@ A simple Task Manager built with ASP.NET Core (.NET 9.0) and Entity Framework Co
     .NET 9.0 SDK, Git, A web browser/VSC
     
 **How to Run**
-**_
-   Clone the repository: _**
+   Clone the repository:
       
       git clone https://github.com/KevinDal2027/TaskManager-.NET-Framework.git
       cd TaskManager-.NET-Framework
