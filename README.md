@@ -1,9 +1,13 @@
 Task Manager (.NET Framework)
 
 A simple Task Manager built with ASP.NET Core (.NET 9.0) and Entity Framework Core (EF Core) using SQLite for data storage. Users can add, edit, delete, and view tasks, sorted by due date first, then priority.
+
 Tech Stack
+
    Backend: ASP.NET Core Minimal API
+   
    Database: SQLite (EF Core)
+   
    Frontend: HTML, CSS, JavaScript
 
 
